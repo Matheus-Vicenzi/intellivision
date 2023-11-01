@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
-public record OrganizationDTO(String orgName,
+public record OrganizationInputDTO(String orgName,
                               String orgDescription,
                               String orgAddress,
                               String orgPhone,
