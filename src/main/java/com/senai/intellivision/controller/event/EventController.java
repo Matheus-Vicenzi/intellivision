@@ -1,7 +1,9 @@
 package com.senai.intellivision.controller.event;
 
 import com.senai.intellivision.domain.event.Event;
+import com.senai.intellivision.domain.event.InputEventDTO;
 import com.senai.intellivision.service.event.EventService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,19 +16,20 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/event")
+@Log4j2
 public class EventController {
     final EventService eventService;
-
     EventController(EventService eventService) {
         this.eventService = eventService;
     }
 
     @PostMapping
-    public ResponseEntity<Event> save(@RequestBody Event event) {
+    public ResponseEntity<Event> save(@RequestBody InputEventDTO eventDTO) {
 
         try {
-            return new ResponseEntity<>(eventService.save(event), HttpStatus.CREATED);
+            return new ResponseEntity<>(eventService.save(eventDTO), HttpStatus.CREATED);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -46,6 +49,7 @@ public class EventController {
         try {
             return ResponseEntity.ok(eventService.getEventById(id));
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             return ResponseEntity.notFound().build();
         }
     }

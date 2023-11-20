@@ -1,4 +1,4 @@
-package com.senai.intellivision.infra.repositories;
+package com.senai.intellivision.infra.repositories.event;
 
 import com.senai.intellivision.domain.event.Event;
 import org.springframework.data.mongodb.repository.MongoRepository;
